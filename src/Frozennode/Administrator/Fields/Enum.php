@@ -25,12 +25,21 @@ class Enum extends Field {
 
 		$dataOptions = $options['options'];
 		$options['options'] = array();
+		
+		if (isset($options['saveKey']))
+		{
+			$saveKey = $options['saveKey'];
+		}
+		else
+		{
+			$saveKey = false;
+		}
 
 		//iterate over the options to create the options assoc array
 		foreach ($dataOptions as $val => $text)
 		{
 			$options['options'][] = array(
-				'id' => is_numeric($val) ? $text : $val,
+				'id' => ($saveKey || !is_numeric($val)) ? $val : $text,
 				'text' => $text,
 			);
 		}
